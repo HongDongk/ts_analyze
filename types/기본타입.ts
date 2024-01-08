@@ -13,33 +13,36 @@ const e: null = null;
 const bad_ex: boolean = true;
 const good_ex: true = true; // 위에보다 명확!
 
-// 함수
-// 1. 일반, 화살표함수
-function func(x: number, y: number): number {
-    return x + y;
-}
-const arrowfunc: (x: number, y: number) => number = (x, y) => x + y;
+// 😎 객체
+// 1. 타입 직접지정
+const obj: { lat: number; lon: number } = {
+    lat: 37.5,
+    lon: 127.5,
+};
 
-// 2. 타입선언해서 선언
-type arrowfunctype = (x: number, y: number) => number;
-const arrow2func: arrowfunctype = (x, y) => x + y;
+// 2. 간단 타입지정
+const obj2 = {
+    lat: 37.5,
+    lon: 127.5,
+} as const;
 
-// 3. interface로 선언
-interface arrowfuncinterface {
-    (x: number, y: number): number;
-}
-const arrow3func: arrowfuncinterface = (x, y) => x + y;
+// 3. key값 타입 가져오기
+type Key = keyof typeof obj2;
 
-// 4. ...으로 나눠서 받기
-rest(1, 'a', 'b');
-function rest(a: number, ...args: string[]) {
-    console.log(a, args);
-}
+// 4. value값 타입 가져오기
+type Value = (typeof obj2)[keyof typeof obj2];
 
-// 객체
-const obj: { lat: number; lon: number } = { lat: 37.5, lon: 127.5 };
-
-// 배열
+// 😎 배열
 const arr: string[] = ['a', 'b', 'c'];
 const arr2: Array<string> = ['a', 'b', 'c'];
 const arr3: [number, number, string] = [1, 2, 'a'];
+
+// 😎 모든타입(null과 undefined 제외) - {}, Object
+const xx: {} = [1, 2, 3, 4, 5];
+const yy: Object = 'hello';
+
+// 😎 ERROR 타입
+try {
+} catch (error) {
+    error as Error;
+}
